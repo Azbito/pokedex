@@ -11,6 +11,8 @@ export const CardContainer = styled.div`
   padding: 3rem 0 3rem 0;
   border-radius: 1rem;
   height: 100%;
+  word-break: break-all;
+  text-align: center;
 `
 
 export const CardTitle = styled.b`
