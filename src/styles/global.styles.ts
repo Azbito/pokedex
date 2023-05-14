@@ -5,7 +5,7 @@ html, body {
   margin: 0;
   padding: 0;
   outline: none;
-  background-image: url('/background.jpg');
   font-family: 'Poppins', sans-serif;
+  background-color: #2f2638;
 }
 `
