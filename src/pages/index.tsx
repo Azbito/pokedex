@@ -8,9 +8,16 @@ import { useContext, useEffect, useState } from 'react'
 
 // contexts
 import { PokeContext } from '@/contexts/pokeDataContext'
-import Image from 'next/image'
+
+// typings
 import { PokeProps } from '@/typings/pokeProps'
 import { PokeCard } from '@/components/PokeCard'
+import { Input } from '@/components/Input'
+
+// styles
+import * as S from '../components/Container/styles'
+import { SearchPokemon } from '@/services/SearchPoke'
+import { Button } from '@/components/Button'
 
 interface HomeProps {
   pokedex: PokeProps
@@ -18,28 +25,32 @@ interface HomeProps {
 
 export default function Home({ pokedex }: HomeProps) {
   const { pokeInfo, setPokeInfo } = useContext(PokeContext)
+  const [search, setSearch] = useState<string>('')
 
   useEffect(() => {
     setPokeInfo(pokedex)
-  }, [pokedex])
+  }, [])
+
+  const handleSearchPokemon = async () => {
+    await SearchPokemon({ search: search, setInfos: setPokeInfo })
+  }
 
   return (
-    <>
+    <S.Container>
+      <Input placeholder="Search a Pokémon" value={search} onChange={(e) => setSearch(e.target.value)} />
+      <Button onClick={handleSearchPokemon} title='Search a Pokémon' />
       {pokeInfo &&
         <PokeCard name={pokeInfo?.name} img={pokeInfo?.sprites?.front_default} />
       }
-    </>
+    </S.Container>
   )
 }
 
 export async function getServerSideProps() {
   const { data: pokedex } = await axios.get('https://pokeapi.co/api/v2/pokemon/ditto')
-  const { data: type } = await axios.get('https://pokeapi.co/api/v2/pokemon-species/132')
-
   return {
     props: {
-      pokedex,
-      type
+      pokedex
     }
   }
 }
