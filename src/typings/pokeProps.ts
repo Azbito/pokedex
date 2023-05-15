@@ -6,9 +6,12 @@ export interface PokeProps {
   sprites: {
     front_default: string
   }
-  types: {
-    type: {
-      url: string
+
+  types: [
+    {
+      type: {
+        name: string
+      }
     }
-  }
+  ]
 }
