@@ -7,12 +7,21 @@ export const CardContainer = styled.div`
   flex-direction: column;
   background-color: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(0.5rem);
-  width: 15%;
-  padding: 3rem 0 3rem 0;
+  width: 100%;
+  padding: 1rem 0 3rem 0;
   border-radius: 1rem;
   height: 100%;
   word-break: break-all;
   text-align: center;
+  transition: 0.2s;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 1);
+  }
+
+  &:active {
+    background-color: rgba(255, 255, 255, 0.6);
+  }
 `
 
 export const CardTitle = styled.b`
@@ -21,4 +30,16 @@ export const CardTitle = styled.b`
   text-transform: uppercase;
   font-weight: 300;
   letter-spacing: 0.2rem;
+`
+export const CardSubtitle = styled.h1`
+  font-weight: 400;
+`
+
+export const CardDescription = styled.p`
+  font-weight: 300;
+  font-style: italic;
+`
+
+export const PokeSearchedContainer = styled.div`
+  width: 20%;
 `

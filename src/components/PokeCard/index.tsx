@@ -1,17 +1,19 @@
 import * as S from "./styles";
 
 type PokeCardProps = {
-  name: string
+  name: string | string[] | undefined
   img: string,
-  // type: string
+  id?: number | null,
+  type?: any,
+  onClick?: () => void
 }
 
-export function PokeCard({ name, img }: PokeCardProps) {
+export function PokeCard({ name, img, id, type, onClick }: PokeCardProps) {
   return (
-    <S.CardContainer>
+    <S.CardContainer key={id} onClick={onClick}>
       <S.CardTitle>{name}</S.CardTitle>
       <img src={img} alt={img} />
-      {/* <h1>{type}</h1> */}
+      <S.CardDescription>{type}</S.CardDescription>
     </S.CardContainer>
   )
 }
