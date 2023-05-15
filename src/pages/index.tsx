@@ -1,4 +1,3 @@
-import Head from 'next/head'
 
 // libraries
 import axios from 'axios'
@@ -7,7 +6,7 @@ import axios from 'axios'
 import { useContext, useEffect, useState } from 'react'
 
 // contexts
-import { PokeContext } from '@/contexts/pokeDataContext'
+import { PokeContext } from '@/contexts/pokesDataContext'
 
 // typings
 import { PokeProps } from '@/typings/pokeProps'
@@ -15,42 +14,73 @@ import { PokeCard } from '@/components/PokeCard'
 import { Input } from '@/components/Input'
 
 // styles
-import * as S from '../components/Container/styles'
-import { SearchPokemon } from '@/services/SearchPoke'
+import { Container, ContainerMap } from '../components/Container/styles'
+
+// services
+import { searchPokemon } from '@/services/searchPoke'
+
+//components
 import { Button } from '@/components/Button'
+import { PokeInfoContext } from '@/contexts/pokeDataContext'
+import { PokeSearchedContainer } from '@/components/PokeCard/styles'
+import { useRouter } from 'next/router'
 
 interface HomeProps {
-  pokedex: PokeProps
+  pokemons: PokeProps[]
 }
 
-export default function Home({ pokedex }: HomeProps) {
-  const { pokeInfo, setPokeInfo } = useContext(PokeContext)
+export default function Home({ pokemons }: HomeProps) {
+  const { pokesInfo, setPokesInfo } = useContext(PokeContext)
+  const { pokeInfo, setPokeInfo } = useContext(PokeInfoContext)
   const [search, setSearch] = useState<string>('')
+  const router = useRouter()
 
   useEffect(() => {
-    setPokeInfo(pokedex)
+    if (pokesInfo.length == 0) {
+      setPokesInfo(pokemons)
+      return
+    }
   }, [])
 
   const handleSearchPokemon = async () => {
-    await SearchPokemon({ search: search, setInfos: setPokeInfo })
+    await searchPokemon({ search: search, setInfos: setPokeInfo })
   }
 
   return (
-    <S.Container>
+    <Container>
       <Input placeholder="Search a Pokémon" value={search} onChange={(e) => setSearch(e.target.value)} />
-      <Button onClick={handleSearchPokemon} title='Search a Pokémon' />
+      <Button onClick={handleSearchPokemon} title='Search' />
       {pokeInfo &&
-        <PokeCard name={pokeInfo?.name} img={pokeInfo?.sprites?.front_default} />
+        <PokeSearchedContainer>
+          <PokeCard id={pokeInfo.id} name={pokeInfo?.name} img={pokeInfo?.sprites?.front_default} type={pokeInfo.types[0].type.name} />
+        </PokeSearchedContainer>
       }
-    </S.Container>
+      <ContainerMap>
+        {pokesInfo.length && <>
+          {pokesInfo.map((item) => (
+            <PokeCard id={item.id} name={item?.name} img={item?.sprites?.front_default} type={item.types[0].type.name} onClick={() => router.push(`/pokemon/${item.name}`)}
+            />
+          ))
+          }
+        </>}
+      </ContainerMap>
+    </Container>
   )
 }
 
 export async function getServerSideProps() {
-  const { data: pokedex } = await axios.get('https://pokeapi.co/api/v2/pokemon/ditto')
+  const { data: pokedex } = await axios.get('https://pokeapi.co/api/v2/pokemon/?limit=50&offset=60')
+
+  let pokemons = []
+
+  for (let i = 0; i < pokedex.results.length; i++) {
+    const { data: pokemon } = await axios.get(pokedex.results[i].url)
+    pokemons.push(pokemon)
+  }
+
   return {
     props: {
-      pokedex
+      pokemons
     }
   }
 }
