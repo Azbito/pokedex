@@ -1,38 +1,25 @@
 import { PokeProps } from '@/typings/pokeProps';
 import React, { createContext, Dispatch, ReactNode, SetStateAction, useState } from 'react';
 
-interface PokeContextType {
-  pokeInfo: PokeProps,
-  setPokeInfo: Dispatch<SetStateAction<PokeProps>>;
+interface PokeInfoContextType {
+  pokeInfo: PokeProps | null,
+  setPokeInfo: Dispatch<SetStateAction<PokeProps | null>>;
 }
 
-interface PokeContextProviderProps {
+interface PokeInfoContextProviderProps {
   children: ReactNode
 }
 
-export const PokeContext = createContext({} as PokeContextType)
+export const PokeInfoContext = createContext({} as PokeInfoContextType)
 
 
-export const PokeContextProvider = ({ children }: PokeContextProviderProps) => {
+export const PokeInfoContextProvider = ({ children }: PokeInfoContextProviderProps) => {
 
-  const [pokeInfo, setPokeInfo] = useState<PokeProps>({
-    name: '',
-    id: null,
-    sprites: {
-      front_default: ''
-    },
-    url: '',
-    weight: null,
-    types: {
-      type: {
-        url: ''
-      }
-    }
-  });
+  const [pokeInfo, setPokeInfo] = useState<PokeProps | null>(null);
 
   return (
-    <PokeContext.Provider value={{ pokeInfo, setPokeInfo }}>
+    <PokeInfoContext.Provider value={{ pokeInfo, setPokeInfo }}>
       {children}
-    </PokeContext.Provider>
+    </PokeInfoContext.Provider>
   )
 }
