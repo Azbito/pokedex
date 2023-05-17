@@ -12,9 +12,11 @@ interface PokePageProps {
 
 export default function PokemonPage({ data }: PokePageProps) {
 
+  console.log(data)
+
   return (
     <Container>
-      <DetailedCard title={data.name} img={data.sprites.front_default} description={data.types[0].type.name} />
+      <DetailedCard title={data.name} img={data.sprites.front_default} description={data.types[0].type.name} height={data.height} weight={data.weight} />
     </Container>)
 }
 
