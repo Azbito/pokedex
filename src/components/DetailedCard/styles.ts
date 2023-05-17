@@ -2,12 +2,26 @@ import { styled } from 'styled-components'
 
 export const DetailedCardContainer = styled.div`
   display: flex;
-  flex-direction: column;
   background-color: #7303fc;
   padding: 1rem;
   border-radius: 1rem;
   box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.3);
   word-break: break-all;
+  gap: 2rem;
+  padding-right: 5rem;
+`
+
+export const DetailedInfosCardContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+`
+
+export const DetailedStatusCardContainer = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
 `
 
 export const DetailedCardTitle = styled.b`
@@ -15,6 +29,19 @@ export const DetailedCardTitle = styled.b`
   text-transform: uppercase;
   color: white;
   letter-spacing: 0.2rem;
+`
+
+export const DetailedCardSubtitle = styled.h1`
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: white;
+`
+
+export const DetailedCardStrong = styled.b`
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: white;
+  margin-right: 0.5rem;
 `
 
 export const DetailedCardDescription = styled.p`
