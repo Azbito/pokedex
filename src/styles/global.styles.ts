@@ -1,4 +1,4 @@
-import { createGlobalStyle, styled } from 'styled-components'
+import { createGlobalStyle } from 'styled-components'
 
 export const GlobalStyle = createGlobalStyle`
 html, body {
@@ -6,6 +6,7 @@ html, body {
   padding: 0;
   outline: none;
   font-family: 'Poppins', sans-serif;
-  background-color: #2f2638;
+  background-color: #0a0a0a;
+  color: white;
 }
 `

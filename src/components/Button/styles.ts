@@ -4,6 +4,7 @@ export interface ButtonStylesProps {
   mainBackground?: string
   hoverBackground?: string
   activeBackground?: string
+  borderRadius?: string
 }
 
 export const Button = styled.button<ButtonStylesProps>`
@@ -12,8 +13,12 @@ export const Button = styled.button<ButtonStylesProps>`
   border: none;
   outline: none;
   padding: 0.7rem;
-  border-radius: 1rem;
+  border-radius: ${props => props.borderRadius ?? '1rem'};
   cursor: pointer;
+  color: white;
+  align-items: center;
+  justify-content: center;
+  display: flex;
 
   &:hover {
     background-color: ${props => props.hoverBackground ?? '#c14dff'};

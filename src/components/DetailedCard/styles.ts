@@ -33,26 +33,22 @@ export const DetailedStatusCardContainer = styled.div`
 export const DetailedCardTitle = styled.b`
   font-size: 1.5rem;
   text-transform: uppercase;
-  color: white;
   letter-spacing: 0.2rem;
 `
 
 export const DetailedCardSubtitle = styled.h1`
   font-size: 1.2rem;
   font-weight: 400;
-  color: white;
 `
 
 export const DetailedCardStrong = styled.b`
   font-size: 1.2rem;
   font-weight: 600;
-  color: white;
   margin-right: 0.5rem;
 `
 
 export const DetailedCardDescription = styled.p`
   margin-top: -0.5rem;
-  color: white;
   font-size: 1rem;
   font-style: italic;
 `
@@ -70,7 +66,6 @@ export const DetailedCardSkillDiv = styled.div`
 export const DetailedCardSkillTitle = styled.h1`
   font-weight: 400;
   font-size: 1rem;
-  color: white;
   text-transform: uppercase;
   font-style: italic;
 `

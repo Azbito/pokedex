@@ -32,6 +32,7 @@ interface HomeProps {
 export default function Home({ pokemons }: HomeProps) {
   const { pokesInfo, setPokesInfo } = useContext(PokeContext)
   const { pokeInfo, setPokeInfo } = useContext(PokeInfoContext)
+  const [isEmpty, setIsEmpty] = useState<boolean>(false)
   const [search, setSearch] = useState<string>('')
   const router = useRouter()
 
@@ -43,16 +44,29 @@ export default function Home({ pokemons }: HomeProps) {
   }, [])
 
   const handleSearchPokemon = async () => {
-    await searchPokemon({ search: search, setInfos: setPokeInfo })
+    if (!isEmpty) {
+      await searchPokemon({ search: search, setInfos: setPokeInfo })
+      return
+    }
+
+    alert("Please, type a name")
   }
+
+  useEffect(() => {
+    if (search === '') {
+      setIsEmpty(true)
+      return
+    }
+    setIsEmpty(false)
+  }, [search])
 
   return (
     <Container>
       <Input placeholder="Search a Pokémon" value={search} onChange={(e) => setSearch(e.target.value)} />
-      <Button onClick={handleSearchPokemon} title='Search' />
+      <Button activeBackground='#65913a' mainBackground='#79b33f' hoverBackground='#8bb363' onClick={handleSearchPokemon} title='Search' />
       {pokeInfo &&
         <PokeSearchedContainer>
-          <PokeCard id={pokeInfo.id} name={pokeInfo?.name} img={pokeInfo?.sprites?.front_default} type={pokeInfo.types[0].type.name} />
+          <PokeCard id={pokeInfo.id} name={pokeInfo?.name} img={pokeInfo?.sprites?.front_default} type={pokeInfo.types[0].type.name} onClick={() => router.push(`/pokemon/${pokeInfo?.name}`)} />
         </PokeSearchedContainer>
       }
       <ContainerMap>
@@ -67,6 +81,7 @@ export default function Home({ pokemons }: HomeProps) {
     </Container>
   )
 }
+
 
 export async function getServerSideProps() {
   const { data: pokedex } = await axios.get('https://pokeapi.co/api/v2/pokemon/?limit=50&offset=60')

@@ -2,7 +2,6 @@ import { Container } from "@/components/Container/styles"
 import { DetailedCard } from "@/components/DetailedCard"
 import { PokeProps } from "@/typings/pokeProps"
 import axios from "axios"
-import { useRouter } from "next/router"
 
 interface PokePageProps {
   data: PokeProps

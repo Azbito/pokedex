@@ -5,28 +5,28 @@ export const CardContainer = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: #7303fc;
   backdrop-filter: blur(0.5rem);
   width: 100%;
-  padding: 1rem 0 3rem 0;
   border-radius: 1rem;
+  padding: 1rem 0 1rem 0;
   height: 100%;
   word-break: break-all;
   text-align: center;
   transition: 0.2s;
+  cursor: pointer;
 
   &:hover {
-    background-color: rgba(255, 255, 255, 1);
+    background-color: #751de0;
   }
 
   &:active {
-    background-color: rgba(255, 255, 255, 0.6);
+    background-color: #5d00cf;
   }
 `
 
 export const CardTitle = styled.b`
   font-size: 1.5rem;
-  color: black;
   text-transform: uppercase;
   font-weight: 300;
   letter-spacing: 0.2rem;

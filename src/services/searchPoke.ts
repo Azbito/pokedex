@@ -8,9 +8,13 @@ type SearchPokemon = {
 }
 
 export async function searchPokemon({ search, setInfos }: SearchPokemon) {
-  const { data } = await axios.get(
-    `https://pokeapi.co/api/v2/pokemon/${search.toLowerCase()}`
-  )
-  setInfos(data)
-  return data
+  try {
+    const { data } = await axios.get(
+      `https://pokeapi.co/api/v2/pokemon/${search.toLowerCase()}`
+    )
+    setInfos(data)
+    return data
+  } catch (error: any) {
+    alert(error)
+  }
 }
