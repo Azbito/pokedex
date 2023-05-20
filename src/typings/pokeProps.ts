@@ -1,7 +1,7 @@
 export interface PokeProps {
-  id: number | null
+  id?: number | null
   name: string
-  url: string
+  url?: string
   weight?: number | null | undefined
   height: number | null | undefined
 
