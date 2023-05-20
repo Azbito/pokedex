@@ -7,6 +7,7 @@ export const Container = styled.div`
   flex-direction: column;
   margin-top: 10rem;
   gap: 2rem;
+  position: relative;
 `
 
 export const ContainerMap = styled.div`
@@ -16,4 +17,10 @@ export const ContainerMap = styled.div`
   justify-content: center;
   gap: 5rem;
   margin-top: 2rem;
+`
+
+export const BackButtonContainer = styled.div`
+  position: absolute;
+  bottom: -5rem;
+  left: 2rem;
 `
