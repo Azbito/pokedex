@@ -4,6 +4,7 @@ import axios from 'axios'
 
 // hooks
 import { useContext, useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 
 // contexts
 import { PokeContext } from '@/contexts/pokesDataContext'
@@ -23,7 +24,6 @@ import { searchPokemon } from '@/services/searchPoke'
 import { Button } from '@/components/Button'
 import { PokeInfoContext } from '@/contexts/pokeDataContext'
 import { PokeSearchedContainer } from '@/components/PokeCard/styles'
-import { useRouter } from 'next/router'
 
 interface HomeProps {
   pokemons: PokeProps[]
@@ -83,19 +83,24 @@ export default function Home({ pokemons }: HomeProps) {
 }
 
 
+
 export async function getServerSideProps() {
-  const { data: pokedex } = await axios.get('https://pokeapi.co/api/v2/pokemon/?limit=50&offset=60')
+  try {
+    const { data: pokedex } = await axios.get('https://pokeapi.co/api/v2/pokemon/?limit=50&offset=60')
 
-  let pokemons = []
+    let pokemons = []
 
-  for (let i = 0; i < pokedex.results.length; i++) {
-    const { data: pokemon } = await axios.get(pokedex.results[i].url)
-    pokemons.push(pokemon)
-  }
-
-  return {
-    props: {
-      pokemons
+    for (let i = 0; i < pokedex.results.length; i++) {
+      const { data: pokemon } = await axios.get(pokedex.results[i].url)
+      pokemons.push(pokemon)
     }
+
+    return {
+      props: {
+        pokemons
+      }
+    }
+  } catch (error: any) {
+    alert(error)
   }
 }
