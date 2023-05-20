@@ -1,7 +1,8 @@
 import { InputHTMLAttributes } from 'react'
 import * as S from './styles'
-type InputProps = InputHTMLAttributes<HTMLInputElement>
 import SearchIcon from '@mui/icons-material/Search';
+
+type InputProps = InputHTMLAttributes<HTMLInputElement>
 
 export function Input(props: InputProps) {
   return (
