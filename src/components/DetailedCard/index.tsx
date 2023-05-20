@@ -1,22 +1,17 @@
-import { DetailedCardContainer, DetailedCardDescription, DetailedCardStrong, DetailedCardSubtitle, DetailedCardTitle, DetailedInfosCardContainer, DetailedStatusCardContainer, ImageFrame } from "./styles";
+import { PokeProps } from "@/typings/pokeProps";
+import { DetailedCardContainer, DetailedCardDescription, DetailedCardSkillDiv, DetailedCardSkillTitle, DetailedCardStrong, DetailedCardSubtitle, DetailedCardTitle, DetailedInfosCardContainer, DetailedMainInfosCardContainer, DetailedStatusCardContainer, ImageFrame } from "./styles";
 
-interface DetailedCardProps {
-  title: string,
-  description: string,
-  img: string,
-  height: number | null | undefined,
-  weight: number | null | undefined,
-  ability: string
-}
+export function DetailedCard({ name, types, height, weight, abilities, sprites }: PokeProps) {
 
-export function DetailedCard({ title, description, img, height, weight }: DetailedCardProps) {
   return (
     <DetailedCardContainer>
-      <DetailedInfosCardContainer>
-        <DetailedCardTitle>{title}</DetailedCardTitle>
-        <DetailedCardDescription>{description}</DetailedCardDescription>
-        <ImageFrame src={img} alt={img} />
-      </DetailedInfosCardContainer>
+      <DetailedMainInfosCardContainer>
+        <DetailedCardTitle>{name}</DetailedCardTitle>
+        {types.map((item) => (
+          <DetailedCardDescription>{item.type.name}</DetailedCardDescription>
+        ))}
+        <ImageFrame src={sprites?.front_default} alt={sprites?.front_default} />
+      </DetailedMainInfosCardContainer>
       <DetailedInfosCardContainer>
         <DetailedStatusCardContainer>
           <DetailedCardStrong>Height:</DetailedCardStrong>
@@ -26,6 +21,14 @@ export function DetailedCard({ title, description, img, height, weight }: Detail
           <DetailedCardStrong>Weight:</DetailedCardStrong>
           <DetailedCardSubtitle>{weight}</DetailedCardSubtitle>
         </DetailedStatusCardContainer>
+        <DetailedInfosCardContainer>
+          <DetailedCardStrong>Abilities</DetailedCardStrong>
+          {abilities?.map((ability) => (
+            <DetailedCardSkillDiv>
+              <DetailedCardSkillTitle>{ability.ability.name}</DetailedCardSkillTitle>
+            </DetailedCardSkillDiv>
+          ))}
+        </DetailedInfosCardContainer>
       </DetailedInfosCardContainer>
     </DetailedCardContainer>
   )
